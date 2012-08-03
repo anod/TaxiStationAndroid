@@ -1,0 +1,11 @@
+<resources>
+
+    <string name="app_name">TaxiStation</string>
+    <string name="title_section3">Driving Cabs</string>
+    <string name="title_section2">Waiting Passengers</string>
+    <string name="title_section1">Waiting Cabs</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_station">Station Manager</string>
+
+</resources>
