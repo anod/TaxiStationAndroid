@@ -6,6 +6,7 @@ package com.station.taxi.message;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,6 +26,10 @@ public class ListDrivingCabsResponse extends AbstractResponse{
 	
 	private Map<Integer,Map<String,Object>> mCabs = new HashMap<Integer, Map<String, Object>>();
 
+	public Set<Integer> getCabNumbers() {
+		return mCabs.keySet();
+	}
+	
 	@Override
 	protected void parseType(JSONObject json) throws JSONException {
 		Map<Integer, Map<String, Object>> cabs = (Map<Integer,Map<String,Object>>) json.get(KEY_CABS);

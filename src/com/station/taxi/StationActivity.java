@@ -1,7 +1,8 @@
 package com.station.taxi;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.widget.ArrayAdapter;
+
+import com.station.taxi.message.ListDrivingCabsResponse;
 
 public class StationActivity extends FragmentActivity {
 
@@ -150,22 +153,10 @@ public class StationActivity extends FragmentActivity {
 		public Loader<List<String>> onCreateLoader(int id, Bundle args) {
 			return new SocketClientLoader(mContext);
 		}
-        
-/*
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        	ListView list = (ListView) inflater.inflate(R.layout.listview, null);
-        	String[] items = { "item1" , "item2", "item3" };
-        	ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
-        	list.setAdapter(adapter);
-        	return list;
-        }
-*/
+ 
     }
     
-    
     public static class SocketClientLoader extends AsyncTaskLoader<List<String>> {
-
 
 		public SocketClientLoader(Context context) {
 			super(context);
@@ -173,8 +164,16 @@ public class StationActivity extends FragmentActivity {
 
 		@Override
 		public List<String> loadInBackground() {
-			// TODO Async requests
-			return Arrays.asList(new String[] { "item1" , "item2", "item3" });
+			StationClient client = new StationClient();
+			ListDrivingCabsResponse response = (ListDrivingCabsResponse) client.request(StationClient.REQUEST_LIST_WAITING_CABS);
+			List<String> list = new ArrayList<String>();
+			if (response != null) {
+				Set<Integer> nums = response.getCabNumbers();
+				for(Integer num: nums) {
+					list.add(String.valueOf(num));
+				}
+			}
+			return list;
 		}
     	
     }
