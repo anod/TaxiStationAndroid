@@ -56,7 +56,7 @@ public class JSONClient implements Client {
 		try {
 			return mJSONSocket.receiveMessage();
 		} catch (IOException ex) {
-			Logger.getLogger(JSONClient.class.getName()).log(Level.SEVERE, null, ex);
+			LoggerWrapper.logException(JSONClient.class.getName(), ex);
 			return null;
 		}
 	}

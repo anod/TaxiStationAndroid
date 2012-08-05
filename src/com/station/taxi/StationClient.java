@@ -13,7 +13,7 @@ import com.station.taxi.message.Request;
  */
 public class StationClient {
 	private static final int PORT = 13000;
-	private static final String HOST = "localhost";
+	private static final String HOST = "10.0.2.2";
 
 	public static final String REQUEST_LIST_WAITING_CABS= "list_waiting_cabs";
 	public static final String REQUEST_LIST_WAITING_PASSENGER = "list_waiting_passenger";
