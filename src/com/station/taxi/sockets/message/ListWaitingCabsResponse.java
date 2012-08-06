@@ -5,6 +5,7 @@
 package com.station.taxi.sockets.message;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.json.JSONException;
@@ -34,14 +35,28 @@ public class ListWaitingCabsResponse extends AbstractResponse {
 	/**
 	 * @return the mCabsStatus
 	 */
-	public Map<Integer,String> mCabsStatus() {
+	public Map<Integer,String> getCabsStatus() {
 		return mCabsStatus;
 	}
 
 	@Override
 	protected void parseType(JSONObject json) throws JSONException {
-		mCabsWaitActions = (Map<Integer, String>) json.get(KEY_WAITACTIONS);
-		mCabsStatus = (Map<Integer, String>) json.get(KEY_STATUS);
+		JSONObject jsonActions = (JSONObject) json.get(KEY_WAITACTIONS);
+		Iterator keys = jsonActions.keys();
+		while(keys.hasNext()) {
+			String kStr = (String)keys.next();
+			String kValue = (String)jsonActions.get(kStr);
+			mCabsWaitActions.put(Integer.valueOf(kStr), kValue);
+		}
+
+		JSONObject jsonStatus = (JSONObject) json.get(KEY_STATUS);
+		keys = jsonStatus.keys();
+		while(keys.hasNext()) {
+			String kStr = (String)keys.next();
+			String kValue = (String)jsonStatus.get(kStr);
+			mCabsStatus.put(Integer.valueOf(kStr), kValue);
+		}
+
 	}
 	
 }

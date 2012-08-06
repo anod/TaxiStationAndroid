@@ -28,6 +28,13 @@ public class MessageFactory {
 		if (action.equals(ACTION_LIST_WAITING_PASSENGERS)) {
 			return new ListPassengersResponse();
 		}
+		if (action.equals(ACTION_LIST_DRIVING)) {
+			return new ListDrivingCabsResponse();
+		}
+		if (action.equals(ACTION_LIST_WAITING_CABS)) {
+			return new ListWaitingCabsResponse();
+		}
+
 		if (action.equals(ACTION_ADDCAB) || 
 			action.equals(ACTION_EXIT) ){
 			return new SimpleResponse();

@@ -44,7 +44,7 @@ public class StationActivity extends FragmentActivity implements
 
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
-
+		
 		// Restore preferences
 		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 		String serverIp = settings.getString(PREF_KEY_IP, null);

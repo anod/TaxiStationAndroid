@@ -2,6 +2,8 @@ package com.station.taxi.sockets;
 
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.station.taxi.sockets.message.AbstractResponse;
 import com.station.taxi.sockets.message.MessageFactory;
 import com.station.taxi.sockets.message.Request;
