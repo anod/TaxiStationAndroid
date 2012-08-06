@@ -1,6 +1,7 @@
 package com.station.taxi.sockets.message;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.json.JSONException;
@@ -28,7 +29,13 @@ public class ListPassengersResponse extends AbstractResponse {
 
 	@Override
 	protected void parseType(JSONObject json) throws JSONException {
-		mPassengers = (Map<String, String>) json.get(KEY_PASSENGERS);
+		JSONObject jsonPassengers = (JSONObject) json.get(KEY_PASSENGERS);
+		Iterator keys = jsonPassengers.keys();
+		while(keys.hasNext()) {
+			String kStr = (String)keys.next();
+			String kValue = (String)jsonPassengers.get(kStr);
+			mPassengers.put(kStr, kValue);
+		}
 	}
 	
 }

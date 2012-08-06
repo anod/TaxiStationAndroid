@@ -4,10 +4,14 @@
  */
 package com.station.taxi.sockets.message;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,7 +21,6 @@ import org.json.JSONObject;
  */
 public class ListDrivingCabsResponse extends AbstractResponse{
 	private static final String KEY_CABS = "cabs";
-	private static final String KEY_STATUS = "statuses";
 
 	public static final String STATUS_BREAK = "onBreak";
 	public static final String STATUS_WAITING = "waiting";
@@ -32,12 +35,25 @@ public class ListDrivingCabsResponse extends AbstractResponse{
 	
 	@Override
 	protected void parseType(JSONObject json) throws JSONException {
-		Map<Integer, Map<String, Object>> cabs = (Map<Integer,Map<String,Object>>) json.get(KEY_CABS);
-		Map<String, Object> data;
-		for(Object key: cabs.keySet()) {
-			int number = (Integer) key;
-			data = cabs.get(key);
-			mCabs.put(number, data);
+		
+		JSONObject jsonCabs = (JSONObject) json.get(KEY_CABS);
+		Iterator keys = jsonCabs.keys();
+		while(keys.hasNext()) {
+			String strNum = (String)keys.next();
+			JSONObject jsonData = (JSONObject)jsonCabs.get(strNum);
+
+			Map<String,Object> data = new HashMap<String,Object>();
+			data.put(KEY_DESTINATION, (String)jsonData.get(KEY_DESTINATION));
+
+			List<String> names = new ArrayList<String>();
+			JSONArray jsonNamesArray = (JSONArray)jsonData.getJSONArray(KEY_PASSENGERS);
+			for (int i = 0; i<jsonNamesArray.length(); i++) {
+				names.add((String)jsonNamesArray.get(i));
+			}
+			
+			data.put(KEY_PASSENGERS, names);
+
+			mCabs.put(Integer.valueOf(strNum), data);
 		}
 	}
 

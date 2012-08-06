@@ -42,19 +42,14 @@ public class ListWaitingCabsResponse extends AbstractResponse {
 	@Override
 	protected void parseType(JSONObject json) throws JSONException {
 		JSONObject jsonActions = (JSONObject) json.get(KEY_WAITACTIONS);
+		JSONObject jsonStatus = (JSONObject) json.get(KEY_STATUS);
 		Iterator keys = jsonActions.keys();
 		while(keys.hasNext()) {
 			String kStr = (String)keys.next();
-			String kValue = (String)jsonActions.get(kStr);
-			mCabsWaitActions.put(Integer.valueOf(kStr), kValue);
-		}
-
-		JSONObject jsonStatus = (JSONObject) json.get(KEY_STATUS);
-		keys = jsonStatus.keys();
-		while(keys.hasNext()) {
-			String kStr = (String)keys.next();
-			String kValue = (String)jsonStatus.get(kStr);
-			mCabsStatus.put(Integer.valueOf(kStr), kValue);
+			String kActionValue = (String)jsonActions.get(kStr);
+			mCabsWaitActions.put(Integer.valueOf(kStr), kActionValue);
+			String kStatusValue = (String)jsonStatus.get(kStr);
+			mCabsStatus.put(Integer.valueOf(kStr), kStatusValue);
 		}
 
 	}
