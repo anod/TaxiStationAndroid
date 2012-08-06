@@ -1,4 +1,4 @@
-package com.station.taxi;
+package com.station.taxi.sockets;
 
 import java.io.IOException;
 

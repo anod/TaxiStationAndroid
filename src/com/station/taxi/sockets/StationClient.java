@@ -1,10 +1,10 @@
-package com.station.taxi;
+package com.station.taxi.sockets;
 
 import org.json.JSONObject;
 
-import com.station.taxi.message.AbstractResponse;
-import com.station.taxi.message.MessageFactory;
-import com.station.taxi.message.Request;
+import com.station.taxi.sockets.message.AbstractResponse;
+import com.station.taxi.sockets.message.MessageFactory;
+import com.station.taxi.sockets.message.Request;
 
 
 /**
@@ -13,7 +13,6 @@ import com.station.taxi.message.Request;
  */
 public class StationClient {
 	private static final int PORT = 13000;
-	private static final String HOST = "10.0.2.2";
 
 	public static final String REQUEST_LIST_WAITING_CABS= "list_waiting_cabs";
 	public static final String REQUEST_LIST_WAITING_PASSENGER = "list_waiting_passenger";
@@ -21,10 +20,18 @@ public class StationClient {
 
 	private final Client mClient;
 
-	public StationClient() {
-		mClient = new JSONClient(HOST, PORT);
+	public StationClient(String serverIp) {
+		mClient = new JSONClient(serverIp, PORT);
 	}
 
+	public boolean isServerAvailable() {
+		if (!mClient.connect()) {
+			return false;
+		}
+		mClient.close();
+		return true;
+	}
+	
 	public AbstractResponse request(String input) {
 		if (!mClient.connect()) {
 			return null;

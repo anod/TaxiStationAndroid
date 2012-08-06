@@ -1,5 +1,5 @@
 
-package com.station.taxi;
+package com.station.taxi.sockets;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,9 +7,10 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+
+import com.station.taxi.utils.LoggerWrapper;
 
 /**
  * Socket wrapper
@@ -31,15 +32,18 @@ public class JSONSocket {
 	}
 	
 	public void sendMessage(Object message) {
-		mToNetOutputStream.println(((JSONObject)message).toString());		
+		String msg = ((JSONObject)message).toString();
+		LoggerWrapper.log(JSONSocket.class.getSimpleName(), "Sending: " + msg);
+		mToNetOutputStream.println(msg);
 	}
 	
-	public Object receiveMessage() throws IOException {
-		String string = mFromNetInputStream.readLine();
+	public Object receiveMessage() {
 		JSONObject message = null;
 		try {
+			String string = mFromNetInputStream.readLine();
+			LoggerWrapper.log(JSONSocket.class.getSimpleName(), "Received: " + string);
 			message = (JSONObject) new JSONTokener(string).nextValue();
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			LoggerWrapper.logException(JSONSocket.class.getSimpleName(), e);
 		}
 		return message;

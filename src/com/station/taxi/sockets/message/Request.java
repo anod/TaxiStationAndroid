@@ -1,4 +1,4 @@
-package com.station.taxi.message;
+package com.station.taxi.sockets.message;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -7,7 +7,7 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.station.taxi.LoggerWrapper;
+import com.station.taxi.utils.LoggerWrapper;
 
 /**
  * Represent request of StationClient

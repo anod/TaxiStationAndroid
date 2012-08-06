@@ -1,11 +1,10 @@
-package com.station.taxi;
+package com.station.taxi.sockets;
 
-import com.station.taxi.LoggerWrapper;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import com.station.taxi.utils.LoggerWrapper;
 
 /**
  * JSON Implementation of client
@@ -24,7 +23,12 @@ public class JSONClient implements Client {
 	
 	public boolean connect() {
 		try {
-			mJSONSocket = new JSONSocket(new Socket(mHost, mPort));
+			Socket socket = new Socket(mHost, mPort);
+			LoggerWrapper.log(JSONClient.class.getSimpleName(), 
+					"Connected to "+socket.getInetAddress()+":"+socket.getPort()
+					+" from "+socket.getLocalSocketAddress()
+			);
+			mJSONSocket = new JSONSocket(socket);
 			mJSONSocket.init();
 		} catch (UnknownHostException ex) {
 			LoggerWrapper.logException(StationClient.class.getName(), ex);
@@ -53,12 +57,7 @@ public class JSONClient implements Client {
 	}
 
 	public Object receiveResponse() {
-		try {
-			return mJSONSocket.receiveMessage();
-		} catch (IOException ex) {
-			LoggerWrapper.logException(JSONClient.class.getName(), ex);
-			return null;
-		}
+		return mJSONSocket.receiveMessage();
 	}
 	
 }

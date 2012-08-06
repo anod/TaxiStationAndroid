@@ -1,4 +1,4 @@
-package com.station.taxi.message;
+package com.station.taxi.sockets.message;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.station.taxi.LoggerWrapper;
+import com.station.taxi.utils.LoggerWrapper;
 
 /**
  *

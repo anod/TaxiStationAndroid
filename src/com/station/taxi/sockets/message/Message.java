@@ -1,4 +1,4 @@
-package com.station.taxi.message;
+package com.station.taxi.sockets.message;
 
 /**
  *
