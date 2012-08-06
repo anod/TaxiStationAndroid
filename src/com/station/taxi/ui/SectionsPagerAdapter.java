@@ -30,7 +30,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     	if (mCurrentIp == null) {
     		throw new IllegalArgumentException("Current ip was not set");
     	}
-    	return ItemsListFragment.newInstance(mCurrentIp);
+    	return ItemsListFragment.newInstance(mCurrentIp,i);
     }
 
     @Override

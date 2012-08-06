@@ -33,6 +33,16 @@ public class ListDrivingCabsResponse extends AbstractResponse{
 		return mCabs.keySet();
 	}
 	
+	public String getDestination(Integer num) {
+		Map<String, Object> data = mCabs.get(num);
+		return (String)data.get(KEY_DESTINATION);
+	}
+
+	public List<String> getPassengers(Integer num) {
+		Map<String, Object> data = mCabs.get(num);
+		return (List<String>) data.get(KEY_PASSENGERS);
+	}
+
 	@Override
 	protected void parseType(JSONObject json) throws JSONException {
 		

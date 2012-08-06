@@ -17,14 +17,16 @@ import com.station.taxi.sockets.SocketClientLoader;
  */
 public class ItemsListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<List<String>> {
     private static final String ARG_SERVER_IP = "server_ip";
+    private static final String ARG_TYPE = "type";
 
 	/**
      * Create a new instance of FindServerDialog
      */
-    static ItemsListFragment newInstance(String ip) {
+    static ItemsListFragment newInstance(String ip, int i) {
     	ItemsListFragment fragment = new ItemsListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_SERVER_IP,ip);
+        args.putInt(ARG_TYPE,i);
         fragment.setArguments(args);
         return fragment;
     }
@@ -33,6 +35,7 @@ public class ItemsListFragment extends ListFragment implements LoaderManager.Loa
 	ArrayAdapter<String> mAdapter;
 	private Context mContext;
 	private String mServerIp;
+	private int mType;
 
 	public ItemsListFragment() {
     }
@@ -43,6 +46,7 @@ public class ItemsListFragment extends ListFragment implements LoaderManager.Loa
 		super.onActivityCreated(savedInstanceState);
 
 		mServerIp = getArguments().getString(ARG_SERVER_IP);
+		mType = getArguments().getInt(ARG_TYPE);
 		
     	mContext = getActivity();
     	// Give some text to display if there is no data.  In a real
@@ -69,6 +73,7 @@ public class ItemsListFragment extends ListFragment implements LoaderManager.Loa
 	public void onLoadFinished(Loader<List<String>> loader, List<String> items) {
         // Swap the new cursor in.  (The framework will take care of closing the
         // old cursor once we return.)
+		mAdapter.clear();
         mAdapter.addAll(items);
 
         // The list should now be shown.
@@ -84,7 +89,7 @@ public class ItemsListFragment extends ListFragment implements LoaderManager.Loa
 	}
 
 	public Loader<List<String>> onCreateLoader(int id, Bundle args) {
-		return new SocketClientLoader(mServerIp, mContext);
+		return new SocketClientLoader(mServerIp, mType, mContext);
 	}
 
 }

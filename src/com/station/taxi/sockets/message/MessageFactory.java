@@ -12,6 +12,7 @@ import com.station.taxi.utils.LoggerWrapper;
 public class MessageFactory {
 	
 	public static final String KEY_ACTION = "action";
+	public static final String KEY_STATUS = "status";
 
 	public static final String ACTION_ADDCAB = "addcab";
 	public static final String ACTION_LIST_WAITING_CABS = "list_waiting_cabs";
@@ -48,14 +49,27 @@ public class MessageFactory {
 	 * @return 
 	 */
 	public static AbstractResponse parseResponse(JSONObject json) {
-		String action;
+		String status;
+		
+		try {
+			status = (String)json.get(KEY_STATUS);
+		} catch (JSONException e1) {
+			LoggerWrapper.logException(MessageFactory.class.getSimpleName(), e1);
+			return null;
+		}
+		
+		String action = null;
 		try {
 			action = (String) json.get(KEY_ACTION);
 		} catch (JSONException e) {
 			LoggerWrapper.logException(MessageFactory.class.getSimpleName(), e);
-			return null;
 		}
-		AbstractResponse response = createResponse(action);
+		AbstractResponse response;
+		if (!status.equals(AbstractResponse.STATUS_OK) || action == null) {
+			response = new SimpleResponse();
+		} else {
+			response = createResponse(action);			
+		}
 		response.parse(json);
 		return response;
 	}
