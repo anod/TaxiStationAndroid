@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import com.station.taxi.sockets.SocketClientLoader;
@@ -98,6 +99,8 @@ public class ItemsListFragment extends ListFragment implements LoaderManager.Loa
 	}
 
 	public Loader<List<String>> onCreateLoader(int id, Bundle args) {
+    	Log.d("test22", "Ttem::CreateLoader::type #"+mType);
+
 		return new SocketClientLoader(mServerIp, mType, mContext);
 	}
 

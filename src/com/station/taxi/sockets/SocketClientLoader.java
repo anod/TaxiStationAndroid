@@ -7,6 +7,7 @@ import java.util.Set;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
+import android.util.Log;
 
 import com.station.taxi.sockets.message.AbstractResponse;
 import com.station.taxi.sockets.message.ListDrivingCabsResponse;
@@ -33,6 +34,7 @@ public class SocketClientLoader extends AsyncTaskLoader<List<String>> {
 	public List<String> loadInBackground() {
 		
 		StationClient client = new StationClient(mServerIp);
+    	Log.d("test22", "Client::background::type #"+mType);
 
 		List<String> list = new ArrayList<String>();
 		AbstractResponse absResponse = client.request(typeToRequest(mType));

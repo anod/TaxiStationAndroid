@@ -3,6 +3,7 @@ package com.station.taxi.ui;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 import android.util.SparseArray;
 
 import com.station.taxi.R;
@@ -33,7 +34,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     	if (mServerIp == null) {
     		throw new IllegalArgumentException("Current ip was not set");
     	}
-    	
+    	Log.d("test22", "Pager::getItem #"+i);
     	ItemsListFragment f = ItemsListFragment.newInstance(mServerIp,i);
     	mFragments.put(i, f);
     	return f;
