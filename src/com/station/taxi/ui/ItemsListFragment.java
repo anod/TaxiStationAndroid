@@ -69,7 +69,16 @@ public class ItemsListFragment extends ListFragment implements LoaderManager.Loa
         getLoaderManager().initLoader(0, null, this).forceLoad();
 	}
 
-
+	public void  setServerIp(String serverIp) {
+		mServerIp = serverIp; 
+	}
+	/**
+	 * Reload data in the fragment
+	 */
+	public void reload() {
+		getLoaderManager().initLoader(0, null, this).forceLoad();
+	}
+	
 	public void onLoadFinished(Loader<List<String>> loader, List<String> items) {
         // Swap the new cursor in.  (The framework will take care of closing the
         // old cursor once we return.)

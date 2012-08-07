@@ -3,6 +3,7 @@ package com.station.taxi.ui;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.SparseArray;
 
 import com.station.taxi.R;
 
@@ -13,31 +14,46 @@ import com.station.taxi.R;
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-	private String mCurrentIp;
+	private static final int CAPACITY = 3;
+	private String mServerIp;
     private StationActivity mActivity;
-
+    private SparseArray<ItemsListFragment> mFragments = new SparseArray<ItemsListFragment>(CAPACITY);
+    
 	public SectionsPagerAdapter(StationActivity activity, FragmentManager fm) {
         super(fm);
         mActivity = activity;
     }
 	
-	public void setIp(String ip) {
-		mCurrentIp = ip;
+	public void setServerIp(String ip) {
+		mServerIp = ip;
 	}
 
     @Override
     public Fragment getItem(int i) {
-    	if (mCurrentIp == null) {
+    	if (mServerIp == null) {
     		throw new IllegalArgumentException("Current ip was not set");
     	}
-    	return ItemsListFragment.newInstance(mCurrentIp,i);
+    	
+    	ItemsListFragment f = ItemsListFragment.newInstance(mServerIp,i);
+    	mFragments.put(i, f);
+    	return f;
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return CAPACITY;
     }
 
+    /**
+     * Reload all initiated fragments
+     */
+    public void reloadFragments() {
+    	for(int i=0;i<mFragments.size(); i++) {
+    		mFragments.valueAt(i).setServerIp(mServerIp);
+    		mFragments.valueAt(i).reload();
+    	}
+    }
+    
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position) {
