@@ -1,7 +1,9 @@
 package com.station.taxi.sockets;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
 import java.net.UnknownHostException;
 
 import com.station.taxi.utils.LoggerWrapper;
@@ -11,6 +13,8 @@ import com.station.taxi.utils.LoggerWrapper;
  * @author alex
  */
 public class JSONClient implements Client {
+	private static final int TIMEOUT = 2000;
+
 	private JSONSocket mJSONSocket;
 
 	private final String mHost;
@@ -23,17 +27,16 @@ public class JSONClient implements Client {
 	
 	public boolean connect() {
 		try {
-			Socket socket = new Socket(mHost, mPort);
+			SocketAddress sockaddr = new InetSocketAddress(mHost, mPort);
+			Socket socket = new Socket();
+			socket.connect(sockaddr, TIMEOUT);
 			LoggerWrapper.log(JSONClient.class.getSimpleName(), 
 					"Connected to "+socket.getInetAddress()+":"+socket.getPort()
 					+" from "+socket.getLocalSocketAddress()
 			);
 			mJSONSocket = new JSONSocket(socket);
 			mJSONSocket.init();
-		} catch (UnknownHostException ex) {
-			LoggerWrapper.logException(StationClient.class.getName(), ex);
-			return false;		
-		} catch (IOException ex) {
+		} catch (Exception ex) {
 			LoggerWrapper.logException(StationClient.class.getName(), ex);
 			return false;
 		}
