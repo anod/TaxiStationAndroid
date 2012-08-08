@@ -10,15 +10,15 @@ import com.station.taxi.R;
 
 
 /**
- * A {@link FragmentPagerAdapter} that returns a fragment corresponding to one of the primary
+ * A {@link FragmentPagerAdapter} that returns a fragment corresponding to one of the
  * sections of the app.
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-	private static final int CAPACITY = 3;
+	private static final int TOTAL_COUNT = 3;
 	private String mServerIp;
     private StationActivity mActivity;
-    private SparseArray<ItemsListFragment> mFragments = new SparseArray<ItemsListFragment>(CAPACITY);
+    private SparseArray<ItemsListFragment> mFragments = new SparseArray<ItemsListFragment>(TOTAL_COUNT);
     
 	public SectionsPagerAdapter(StationActivity activity, FragmentManager fm) {
         super(fm);
@@ -34,7 +34,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     	if (mServerIp == null) {
     		throw new IllegalArgumentException("Current ip was not set");
     	}
-    	Log.d("test22", "Pager::getItem #"+i);
     	ItemsListFragment f = ItemsListFragment.newInstance(mServerIp,i);
     	mFragments.put(i, f);
     	return f;
@@ -42,7 +41,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return CAPACITY;
+        return TOTAL_COUNT;
     }
 
     /**

@@ -6,14 +6,17 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.station.taxi.R;
 import com.station.taxi.ui.ServerIpDialog.ServerIpDialogListener;
-
+/**
+ * Main application activity
+ * @author alex
+ *
+ */
 public class StationActivity extends FragmentActivity implements ServerIpDialogListener {
 	private static final String PREF_KEY_IP = "ip";
 	private static final String PREFS_NAME = "StationAppPrefs";
@@ -70,6 +73,9 @@ public class StationActivity extends FragmentActivity implements ServerIpDialogL
 		return super.onMenuItemSelected(featureId, item);
 	}
 
+	/**
+	 * Called when serverIp changed
+	 */
 	public void onSetServerIp(String serverIp) {
 		
 		if (serverIp == null || serverIp.equals("")) {
@@ -89,6 +95,10 @@ public class StationActivity extends FragmentActivity implements ServerIpDialogL
 
 	}
 
+	/**
+	 * Update pager adapter
+	 * @param serverIp
+	 */
 	private void setPagerAdapter(String serverIp) {
 		// Set Section Pager Adapter
 		mSectionsPagerAdapter.setServerIp(serverIp);
@@ -99,6 +109,9 @@ public class StationActivity extends FragmentActivity implements ServerIpDialogL
 		}
 	}
 
+	/**
+	 * Show fragment dialog to set server ip
+	 */
 	private void showServerIpDialog() {
 		// DialogFragment.show() will take care of adding the fragment
 		// in a transaction. We also want to remove any currently showing

@@ -67,6 +67,7 @@ public class ItemsListFragment extends ListFragment implements LoaderManager.Loa
 
         // Prepare the loader.  Either re-connect with an existing one,
         // or start a new one.
+        getLoaderManager().enableDebugLogging(true);
         getLoaderManager().initLoader(0, null, this).forceLoad();
 	}
 
@@ -77,7 +78,7 @@ public class ItemsListFragment extends ListFragment implements LoaderManager.Loa
 	 * Reload data in the fragment
 	 */
 	public void reload() {
-		getLoaderManager().initLoader(0, null, this).forceLoad();
+		getLoaderManager().restartLoader(0, null, this);
 	}
 	
 	public void onLoadFinished(Loader<List<String>> loader, List<String> items) {
@@ -99,8 +100,6 @@ public class ItemsListFragment extends ListFragment implements LoaderManager.Loa
 	}
 
 	public Loader<List<String>> onCreateLoader(int id, Bundle args) {
-    	Log.d("test22", "Ttem::CreateLoader::type #"+mType);
-
 		return new SocketClientLoader(mServerIp, mType, mContext);
 	}
 
