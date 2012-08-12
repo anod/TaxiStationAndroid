@@ -68,7 +68,7 @@ public class ItemsListFragment extends ListFragment implements LoaderManager.Loa
         // Prepare the loader.  Either re-connect with an existing one,
         // or start a new one.
         getLoaderManager().enableDebugLogging(true);
-        getLoaderManager().initLoader(0, null, this).forceLoad();
+        getLoaderManager().initLoader(mType, null, this).forceLoad();
 	}
 
 	public void  setServerIp(String serverIp) {

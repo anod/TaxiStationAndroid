@@ -6,15 +6,14 @@ import java.util.Map;
 import java.util.Set;
 
 import android.content.Context;
-import android.support.v4.content.AsyncTaskLoader;
-import android.util.Log;
 
 import com.station.taxi.sockets.message.AbstractResponse;
 import com.station.taxi.sockets.message.ListDrivingCabsResponse;
 import com.station.taxi.sockets.message.ListPassengersResponse;
 import com.station.taxi.sockets.message.ListWaitingCabsResponse;
+import com.station.taxi.utils.AsyncLoader;
 
-public class SocketClientLoader extends AsyncTaskLoader<List<String>> {
+public class SocketClientLoader extends AsyncLoader<List<String>> {
 	
 	
 	private static final int TYPE_WAITING_CABS = 0;
