@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
-import java.net.UnknownHostException;
+
+import org.json.JSONObject;
 
 import com.station.taxi.utils.LoggerWrapper;
 
@@ -20,11 +21,20 @@ public class JSONClient implements Client {
 	private final String mHost;
 	private final Integer mPort;
 	
+	/**
+	 * 
+	 * @param host Server host to connect to
+	 * @param port Server port to connect to
+	 */
 	public JSONClient(String host, Integer port) {
 		mHost = host;
 		mPort = port;
 	}
 	
+	/**
+	 * Connect to the server
+	 * @return true if successfully connected
+	 */
 	public boolean connect() {
 		try {
 			SocketAddress sockaddr = new InetSocketAddress(mHost, mPort);
@@ -43,6 +53,9 @@ public class JSONClient implements Client {
 		return true;
 	}
 
+	/**
+	 * Disconnect from the server
+	 */
 	public void close() {
 		if (mJSONSocket == null) {
 			return;
@@ -55,10 +68,16 @@ public class JSONClient implements Client {
 		mJSONSocket = null;
 	}
 
+	/**
+	 * Send request to server
+	 */
 	public void sendRequest(Object request) {
-		mJSONSocket.sendMessage(request);
+		mJSONSocket.sendMessage((JSONObject)request);
 	}
 
+	/**
+	 * Receive response form server
+	 */
 	public Object receiveResponse() {
 		return mJSONSocket.receiveMessage();
 	}

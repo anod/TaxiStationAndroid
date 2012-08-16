@@ -3,11 +3,9 @@ package com.station.taxi.ui;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
 import android.util.SparseArray;
 
 import com.station.taxi.R;
-
 
 /**
  * A {@link FragmentPagerAdapter} that returns a fragment corresponding to one of the
@@ -20,11 +18,20 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     private StationActivity mActivity;
     private SparseArray<ItemsListFragment> mFragments = new SparseArray<ItemsListFragment>(TOTAL_COUNT);
     
+    /**
+     * 
+     * @param activity
+     * @param fm
+     */
 	public SectionsPagerAdapter(StationActivity activity, FragmentManager fm) {
         super(fm);
         mActivity = activity;
     }
 	
+	/**
+	 * Set ip of the server
+	 * @param ip
+	 */
 	public void setServerIp(String ip) {
 		mServerIp = ip;
 	}

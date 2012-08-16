@@ -10,7 +10,14 @@ import android.support.v4.app.DialogFragment;
 import android.widget.EditText;
 import com.station.taxi.R;
 
+/**
+ * Dialog to change ip
+ * @author alex
+ *
+ */
 public class ServerIpDialog extends DialogFragment {
+
+	private static final String ARG_IP = "ip";
 
 	interface ServerIpDialogListener {
 		void onSetServerIp(String ip);
@@ -23,7 +30,7 @@ public class ServerIpDialog extends DialogFragment {
     	
     	// Supply num input as an argument.
         Bundle args = new Bundle();
-        args.putString("ip", ip);
+        args.putString(ARG_IP, ip);
         f.setArguments(args);
     	
         return f;
@@ -33,8 +40,8 @@ public class ServerIpDialog extends DialogFragment {
     
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
-    	
-    	String ip = getArguments().getString("ip");
+    	//initial ip
+    	String ip = getArguments().getString(ARG_IP);
     	 
     	mEditText = new EditText(getActivity());
     	
@@ -42,6 +49,7 @@ public class ServerIpDialog extends DialogFragment {
     		mEditText.setText(ip);
     	}
     	
+    	//create dialog using builder
     	Builder builder = new AlertDialog.Builder(getActivity());
     	builder
     		.setView(mEditText)

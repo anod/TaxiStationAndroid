@@ -8,7 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Message that contain list of waiting passengers
+ * Response message that contain list of waiting passengers
  * @author alex
  */
 public class ListPassengersResponse extends AbstractResponse {
@@ -17,14 +17,10 @@ public class ListPassengersResponse extends AbstractResponse {
 	private Map<String,String> mPassengers = new HashMap<String, String>();
 
 	/**
-	 * @return the mPassengers
+	 * @return map of passenger name to their destination
 	 */
 	public Map<String,String> getPassengers() {
 		return mPassengers;
-	}
-
-	public void addPassenger(String name, String destination) {
-		mPassengers.put(name, destination);
 	}
 
 	@Override

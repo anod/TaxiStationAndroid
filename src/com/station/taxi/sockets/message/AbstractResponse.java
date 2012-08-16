@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import com.station.taxi.utils.LoggerWrapper;
 
 /**
- *
+ * Abstract json response message
  * @author alex
  */
 abstract public class AbstractResponse implements JSONMessage {
@@ -24,9 +24,14 @@ abstract public class AbstractResponse implements JSONMessage {
 	private String mAction;
 	private List<String> mErrors = new ArrayList<String>();
 	
-	public AbstractResponse() {
-	}
+	public AbstractResponse() { }
 
+	/**
+	 * @return request action
+	 */
+	public String getAction() {
+		return mAction;
+	}
 	/**
 	 * Original request action
 	 * @param action 
@@ -67,10 +72,16 @@ abstract public class AbstractResponse implements JSONMessage {
 		return mStatus!=null & mStatus.equals(STATUS_OK);
 	}
 	
+	/**
+	 * @return response status
+	 */
 	public String getStatus() {
 		return mStatus;
 	}
 
+	/**
+	 * Parse response from JSON
+	 */
 	public void parse(JSONObject json) {
 		try {
 			mStatus = (String)json.get(KEY_RESPONSE_STATUS);
@@ -83,6 +94,11 @@ abstract public class AbstractResponse implements JSONMessage {
 		}
 	}
 	
+	/**
+	 * Parse concrete response type
+	 * @param json
+	 * @throws JSONException
+	 */
 	abstract protected void parseType(JSONObject json) throws JSONException;
 
 }

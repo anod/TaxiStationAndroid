@@ -16,10 +16,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- *
+ * List of driving cabs response
  * @author alex
  */
-public class ListDrivingCabsResponse extends AbstractResponse{
+public class ListDrivingCabsResponse extends AbstractResponse {
 	private static final String KEY_CABS = "cabs";
 
 	public static final String STATUS_BREAK = "onBreak";
@@ -29,15 +29,28 @@ public class ListDrivingCabsResponse extends AbstractResponse{
 	
 	private Map<Integer,Map<String,Object>> mCabs = new HashMap<Integer, Map<String, Object>>();
 
+	/**
+	 * @return cab numbers
+	 */
 	public Set<Integer> getCabNumbers() {
 		return mCabs.keySet();
 	}
 	
+	/**
+	 * Destination of cab with num
+	 * @param num
+	 * @return
+	 */
 	public String getDestination(Integer num) {
 		Map<String, Object> data = mCabs.get(num);
 		return (String)data.get(KEY_DESTINATION);
 	}
 
+	/**
+	 * Passengers in the cab
+	 * @param num
+	 * @return List of passenger names
+	 */
 	public List<String> getPassengers(Integer num) {
 		Map<String, Object> data = mCabs.get(num);
 		return (List<String>) data.get(KEY_PASSENGERS);

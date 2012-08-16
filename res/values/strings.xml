@@ -10,5 +10,6 @@
     <string name="title_activity_station">Station Manager</string>
     <string name="set_station_ip">Set Station Ip</string>
     <string name="save">Set</string>
+    <string name="no_items">No items</string>
 
 </resources>

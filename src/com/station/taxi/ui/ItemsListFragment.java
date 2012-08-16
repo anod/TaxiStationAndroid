@@ -7,11 +7,10 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 
-import com.station.taxi.sockets.SocketClientLoader;
-
+import com.station.taxi.R;
+import com.station.taxi.content.SocketClientLoader;
 
 /**
  * A fragment representing a section of the app.
@@ -38,9 +37,7 @@ public class ItemsListFragment extends ListFragment implements LoaderManager.Loa
 	private String mServerIp;
 	private int mType;
 
-	public ItemsListFragment() {
-    }
-
+	public ItemsListFragment() { }
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -52,7 +49,7 @@ public class ItemsListFragment extends ListFragment implements LoaderManager.Loa
     	mContext = getActivity();
     	// Give some text to display if there is no data.  In a real
         // application this would come from a resource.
-        setEmptyText("No items");
+        setEmptyText(mContext.getString(R.string.no_items));
 
         // We have a menu item to show in action bar.
         setHasOptionsMenu(true);
@@ -67,10 +64,14 @@ public class ItemsListFragment extends ListFragment implements LoaderManager.Loa
 
         // Prepare the loader.  Either re-connect with an existing one,
         // or start a new one.
-        getLoaderManager().enableDebugLogging(true);
+        LoaderManager.enableDebugLogging(true);
         getLoaderManager().initLoader(mType, null, this).forceLoad();
 	}
 
+	/**
+	 * Set ip of the server
+	 * @param serverIp
+	 */
 	public void  setServerIp(String serverIp) {
 		mServerIp = serverIp; 
 	}
@@ -81,6 +82,9 @@ public class ItemsListFragment extends ListFragment implements LoaderManager.Loa
 		getLoaderManager().restartLoader(0, null, this);
 	}
 	
+	/**
+	 * Load of data was finished
+	 */
 	public void onLoadFinished(Loader<List<String>> loader, List<String> items) {
         // Swap the new cursor in.  (The framework will take care of closing the
         // old cursor once we return.)
@@ -95,10 +99,16 @@ public class ItemsListFragment extends ListFragment implements LoaderManager.Loa
         }			
 	}
 
+	/**
+	 * Restart loading of data
+	 */
 	public void onLoaderReset(Loader<List<String>> loader) {
         mAdapter.clear();
 	}
 
+	/**
+	 * Create socket loader
+	 */
 	public Loader<List<String>> onCreateLoader(int id, Bundle args) {
 		return new SocketClientLoader(mServerIp, mType, mContext);
 	}

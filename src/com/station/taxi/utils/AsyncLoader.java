@@ -3,6 +3,12 @@ package com.station.taxi.utils;
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
+/**
+ * Utility to fix handling forceLoad 
+ * @author alex
+ *
+ * @param <D>
+ */
 public abstract class AsyncLoader<D> extends AsyncTaskLoader<D> {
 
     private D data;

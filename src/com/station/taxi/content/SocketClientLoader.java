@@ -1,4 +1,4 @@
-package com.station.taxi.sockets;
+package com.station.taxi.content;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,14 +7,19 @@ import java.util.Set;
 
 import android.content.Context;
 
+import com.station.taxi.sockets.StationClient;
 import com.station.taxi.sockets.message.AbstractResponse;
 import com.station.taxi.sockets.message.ListDrivingCabsResponse;
 import com.station.taxi.sockets.message.ListPassengersResponse;
 import com.station.taxi.sockets.message.ListWaitingCabsResponse;
 import com.station.taxi.utils.AsyncLoader;
 
+/**
+ * Load content from remote socket server
+ * @author alex
+ *
+ */
 public class SocketClientLoader extends AsyncLoader<List<String>> {
-	
 	
 	private static final int TYPE_WAITING_CABS = 0;
 	private static final int TYPE_WAITING_PASSENGERS = 1;
@@ -23,6 +28,12 @@ public class SocketClientLoader extends AsyncLoader<List<String>> {
 	private String mServerIp;
 	private int mType;
 
+	/**
+	 * 
+	 * @param serverIp Socket server ip
+	 * @param type Request type
+	 * @param context
+	 */
 	public SocketClientLoader(String serverIp, int type, Context context) {
 		super(context);
 		mServerIp = serverIp;
@@ -51,6 +62,11 @@ public class SocketClientLoader extends AsyncLoader<List<String>> {
 		return list;
 	}
 
+	/**
+	 * Convert type into request constatn
+	 * @param type
+	 * @return
+	 */
 	private String typeToRequest(int type) {
 		switch(mType) {
 		case TYPE_WAITING_CABS:
@@ -63,6 +79,12 @@ public class SocketClientLoader extends AsyncLoader<List<String>> {
 		return null;
 	}
 	
+	/**
+	 * 
+	 * @param response
+	 * @param list
+	 * @return list of driving cabs "123 --> Destination [Passenger1, Passenger2]"
+	 */
 	private List<String> readDrivingCabs(ListDrivingCabsResponse response, List<String> list) {
 		Set<Integer> nums = response.getCabNumbers();
 		for(Integer num: nums) {
@@ -82,6 +104,12 @@ public class SocketClientLoader extends AsyncLoader<List<String>> {
 		return list;
 	}
 
+	/**
+	 * 
+	 * @param response
+	 * @param list
+	 * @return list of waiting passengers "Passenger --> Destination"
+	 */
 	private List<String> readWaitingPassengers(ListPassengersResponse response, List<String> list) {
 		Map<String, String> passengers = response.getPassengers();
 		for(String name: passengers.keySet()) {
@@ -95,6 +123,12 @@ public class SocketClientLoader extends AsyncLoader<List<String>> {
 		return list;
 	}
 
+	/**
+	 * 
+	 * @param response
+	 * @param list
+	 * @return list of waiting cabs "111 [waiting, eat]"
+	 */
 	private List<String> readWaitingCabsList(ListWaitingCabsResponse response, List<String> list) {
 		Map<Integer,String> nums = response.getCabsStatus();
 		Map<Integer, String> acts = response.getCabsWaitActions();

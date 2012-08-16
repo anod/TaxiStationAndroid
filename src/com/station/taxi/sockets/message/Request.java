@@ -73,6 +73,9 @@ public class Request implements JSONMessage {
 		return json;
 	}
 
+	/**
+	 * Parse json message into request
+	 */
 	public void parse(JSONObject json) {
 		Iterator keys = json.keys();
 		while(keys.hasNext()) {

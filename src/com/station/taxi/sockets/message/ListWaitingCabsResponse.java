@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.station.taxi.sockets.message;
 
 import java.util.HashMap;
@@ -12,7 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- *
+ * Response message of waiting cabs
  * @author alex
  */
 public class ListWaitingCabsResponse extends AbstractResponse {
@@ -26,14 +22,14 @@ public class ListWaitingCabsResponse extends AbstractResponse {
 	private Map<Integer,String> mCabsStatus = new HashMap<Integer, String>();
 
 	/**
-	 * @return the mCabsWaitActions
+	 * @return cab numbers with their waiting actions 
 	 */
 	public Map<Integer,String> getCabsWaitActions() {
 		return mCabsWaitActions;
 	}
 
 	/**
-	 * @return the mCabsStatus
+	 * @return cab numbers with their waiting statuses
 	 */
 	public Map<Integer,String> getCabsStatus() {
 		return mCabsStatus;

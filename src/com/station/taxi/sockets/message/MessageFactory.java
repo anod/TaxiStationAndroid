@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import com.station.taxi.utils.LoggerWrapper;
 
 /**
- *
+ * Factory for socket request and response
  * @author alex
  */
 public class MessageFactory {
